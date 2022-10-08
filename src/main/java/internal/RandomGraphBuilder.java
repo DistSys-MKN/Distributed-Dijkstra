@@ -1,6 +1,7 @@
 package internal;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
 public class RandomGraphBuilder {
@@ -32,7 +33,7 @@ public class RandomGraphBuilder {
             var destination = random.nextInt(nodesCount);
             //noinspection ConstantConditions
             assert 0 <= source && source < nodesCount && 0 <= destination && destination < nodesCount;
-            var weight = weightsFrom + random.nextLong(weightsTo - weightsFrom);
+            var weight = ThreadLocalRandom.current().nextLong(weightsFrom, weightsTo);
             if (result.get(source).containsKey(destination)) {
                 if (skipEdges) {
                     edgesAdded++;
